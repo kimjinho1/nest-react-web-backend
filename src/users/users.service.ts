@@ -28,14 +28,7 @@ export class UsersService {
 
   // 회원 가입
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const { userId, userPassword, userName } = createUserDto;
-    const user = this.userRepository.create({
-      userId,
-      userPassword,
-      userName,
-    });
-    // const user = this.userRepository.create(createUserDto);
-    console.log(user);
+    const user = this.userRepository.create(createUserDto);
     await this.userRepository.save(user);
     return user;
   }
@@ -48,6 +41,7 @@ export class UsersService {
     }
   }
 
+  // id로 유저 정보 업데이트
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.getUserById(id);
     this.userRepository.update(id, updateUserDto);
