@@ -14,34 +14,34 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
   async getAllUser(): Promise<User[]> {
-    return await this.userService.getAllUser();
+    return await this.usersService.getAllUser();
   }
 
   @Get('/:id')
   async getUserById(@Param('id') userId: number): Promise<User> {
-    return await this.userService.getUserById(userId);
+    return await this.usersService.getUserById(userId);
   }
 
   @Post()
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.userService.createUser(createUserDto);
+  async signUp(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.usersService.createUser(createUserDto);
   }
 
   @Delete('/:id')
   async deleteUser(@Param('id') userId: number): Promise<void> {
     // return을 안하면 insomnia에서 에러가 안오는 것 같다
-    return this.userService.deleteUser(userId);
+    return this.usersService.deleteUser(userId);
   }
 
   @Patch('/:id')
   async updateUser(
     @Param('id') userId: number,
     @Body() updateUserDto: UpdateUserDto,
-  ): Promise<User> {
-    return this.userService.updateUser(userId, updateUserDto);
+  ): Promise<void> {
+    return this.usersService.updateUser(userId, updateUserDto);
   }
 }
