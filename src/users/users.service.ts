@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFoundError } from 'rxjs';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entity/user.entity';
 import { UsersRepository } from './users.repository';
 
@@ -13,12 +13,12 @@ export class UsersService {
   ) {}
 
   // 모든 유저 정보 받기
-  async findAll(): Promise<User[]> {
+  async getAllUser(): Promise<User[]> {
     return this.userRepository.find();
   }
 
   // id로 유저 찾기
-  async findOne(id: number): Promise<User | null> {
+  async getUserById(id: number): Promise<User> {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new NotFoundException(`User with Id ${id} not found`);
@@ -34,6 +34,7 @@ export class UsersService {
       userPassword,
       userName,
     });
+    // const user = this.userRepository.create(createUserDto);
     console.log(user);
     await this.userRepository.save(user);
     return user;
@@ -45,5 +46,11 @@ export class UsersService {
     if (result.affected === 0) {
       throw new NotFoundException(`User with Id ${id} not found`);
     }
+  }
+
+  async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.getUserById(id);
+    this.userRepository.update(id, updateUserDto);
+    return user;
   }
 }
