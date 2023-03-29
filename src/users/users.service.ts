@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -28,6 +33,16 @@ export class UsersService {
 
   // 회원 가입
   async createUser(createUserDto: CreateUserDto): Promise<User> {
+    const userId = createUserDto.userId;
+    const existUser = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.userId = :userId', { userId })
+      .select(['user.userId'])
+      .getOne();
+    console.log(existUser);
+    if (existUser) {
+      throw new HttpException('User id already exists', HttpStatus.BAD_REQUEST);
+    }
     const user = this.userRepository.create(createUserDto);
     await this.userRepository.save(user);
     return user;
