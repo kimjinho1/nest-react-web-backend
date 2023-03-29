@@ -7,6 +7,11 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
+  @Get()
+  async findAll(): Promise<User[]> {
+    return await this.userService.findAll();
+  }
+
   @Get('/:id')
   async findOne(@Param('id') userId: number): Promise<User> {
     return await this.userService.findOne(userId);

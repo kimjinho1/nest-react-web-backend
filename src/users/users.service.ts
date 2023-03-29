@@ -12,7 +12,12 @@ export class UsersService {
     private userRepository: UsersRepository,
   ) {}
 
-  // 유저 찾기
+  // 모든 유저 정보 받기
+  async findAll(): Promise<User[]> {
+    return this.userRepository.find();
+  }
+
+  // id로 유저 찾기
   async findOne(id: number): Promise<User | null> {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
@@ -34,6 +39,7 @@ export class UsersService {
     return user;
   }
 
+  // 계정 탈퇴
   async deleteUser(id: number): Promise<void> {
     const result = await this.userRepository.delete(id);
     if (result.affected === 0) {
