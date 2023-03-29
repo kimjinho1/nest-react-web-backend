@@ -19,8 +19,8 @@ export class PostgresConfigService implements TypeOrmOptionsFactory {
       // DB는 Snake case, ts는 Camel case를 사용하기 때문에 db key 이름들이 매칭이 안됨
       // SnakeNamingStrategy(typeorm-naming-strategies)를 사용하면 알아서 Camel을 Snake case 형식으로 바꿔줌
       namingStrategy: new SnakeNamingStrategy(),
-      // synchronize: true,
-      // autoLoadEntities: true
+      synchronize: true,
+      autoLoadEntities: true,
     };
   }
 }
