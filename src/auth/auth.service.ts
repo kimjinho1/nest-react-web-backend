@@ -17,6 +17,7 @@ export class AuthService {
     }
     const payload = { userId: user.userId, sub: user.id };
     return {
+      // signAsync: 토큰 생성, payload 암호화
       access_token: await this.jwtService.signAsync(payload),
     };
   }

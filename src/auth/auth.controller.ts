@@ -17,14 +17,14 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Public()
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.OK) // 상태 코드 지정인 듯?
   @Post('login')
   signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto.userId, signInDto.userPassword);
   }
 
   @UseGuards(AuthGuard)
-  @Get('profile')
+  @Get('profile') // request에 접근
   getProFile(@Request() req) {
     return req.user;
   }

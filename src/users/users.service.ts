@@ -37,7 +37,6 @@ export class UsersService {
       .createQueryBuilder('user')
       .where('user.userId = :userId', { userId })
       .getOne();
-    console.log(user);
     if (!user) {
       throw new NotFoundException(`User with user id ${userId} not found`);
     }
@@ -52,7 +51,6 @@ export class UsersService {
       .where('user.userId = :userId', { userId })
       .select(['user.userId'])
       .getOne();
-    console.log(existUser);
     if (existUser) {
       throw new HttpException('User id already exists', HttpStatus.BAD_REQUEST);
     }
