@@ -31,6 +31,19 @@ export class UsersService {
     return user;
   }
 
+  // userId로 유저 찾기 -> auth signIn에서 사용
+  async getUserByUserId(userId: string): Promise<User> {
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.userId = :userId', { userId })
+      .getOne();
+    console.log(user);
+    if (!user) {
+      throw new NotFoundException(`User with user id ${userId} not found`);
+    }
+    return user;
+  }
+
   // 회원 가입
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const userId = createUserDto.userId;
