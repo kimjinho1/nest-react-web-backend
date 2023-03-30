@@ -8,6 +8,7 @@ import { PostgresConfigModule } from './config/database/config.module';
 import { PostgresConfigService } from './config/database/config.service';
 import { UsersModule } from './users/users.module';
 import { DataSource } from 'typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { DataSource } from 'typeorm';
       inject: [PostgresConfigService],
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
