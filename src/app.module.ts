@@ -9,6 +9,7 @@ import { PostgresConfigService } from './config/database/config.service';
 import { UsersModule } from './users/users.module';
 import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
+import { TodosModule } from './todos/todos.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    TodosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
