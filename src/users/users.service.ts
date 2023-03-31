@@ -69,7 +69,6 @@ export class UsersService {
 
   // id로 유저 정보 업데이트
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<void> {
-    const user = await this.getUserById(id);
     this.userRepository.update(id, updateUserDto);
   }
 }

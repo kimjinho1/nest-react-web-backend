@@ -21,9 +21,7 @@ import { AuthService } from './auth.service';
       global: true,
     }),
     JwtModule.register({
-      // 60 -> 2일 10시간 7분 -> 3487분
-      // 1 -> 58분 정도
-      signOptions: { expiresIn: 1 },
+      signOptions: { expiresIn: '60s' },
     }),
     ConfigModule,
   ],

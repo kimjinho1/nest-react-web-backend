@@ -16,4 +16,7 @@ export class User {
 
   @Column()
   userName: string;
+
+  @Column({ type: 'simple-array', nullable: true })
+  todos: string[];
 }
