@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { isStrongPassword } from 'class-validator';
-import { TypeOrmExModule } from './custom-repository/typeorm-ex.module';
+import { TypeOrmExModule } from 'src/custom-repository/typeorm-ex.module';
 import { User } from './entity/user.entity';
 import { UsersController } from './users.controller';
 import { UsersRepository } from './users.repository';
