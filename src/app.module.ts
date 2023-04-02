@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { TodosModule } from './todos/todos.module';
+import { BoardsModule } from './boards/boards.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { TodosModule } from './todos/todos.module';
     UsersModule,
     AuthModule,
     TodosModule,
+    BoardsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
