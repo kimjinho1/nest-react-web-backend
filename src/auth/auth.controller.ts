@@ -6,9 +6,8 @@ import {
   HttpStatus,
   Post,
   Request,
-  UseGuards,
 } from '@nestjs/common';
-import { AuthGuard, Public } from './auth.guard';
+import { Public } from './auth.guard';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 
@@ -23,9 +22,9 @@ export class AuthController {
     return this.authService.signIn(signInDto.userId, signInDto.userPassword);
   }
 
-  @UseGuards(AuthGuard)
   @Get('profile') // request에 접근
   getProFile(@Request() req) {
-    return req.user;
+    console.log(req.user.userId);
+    return this.authService.profile(req.user.userId);
   }
 }

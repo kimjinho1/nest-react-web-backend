@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { Public } from './auth.guard';
+import { User } from 'src/users/entity/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -20,5 +21,9 @@ export class AuthService {
       // signAsync: 토큰 생성, payload 암호화
       access_token: await this.jwtService.signAsync(payload),
     };
+  }
+
+  async profile(userId: string): Promise<User> {
+    return this.usersService.getUserByUserId(userId);
   }
 }
