@@ -24,7 +24,6 @@ export class AuthController {
 
   @Get('profile') // request에 접근
   getProFile(@Request() req) {
-    console.log(req.user.userId);
     return this.authService.profile(req.user.userId);
   }
 }
