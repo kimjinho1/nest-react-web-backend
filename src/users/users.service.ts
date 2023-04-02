@@ -73,24 +73,37 @@ export class UsersService {
     this.userRepository.update(id, updateUserDto);
   }
 
+  makeUpdateUser(user: User): User {
+    const updateUser = {
+      ...user,
+      todos: user.todos,
+    };
+    return updateUser;
+  }
+
   async addTodo(userId: string, todo: string): Promise<void> {
     const user = await this.getUserByUserId(userId);
     if (user.todos === null) {
       user.todos = [];
     }
-    const updateUser = {
-      ...user,
-      todos: [todo, ...user.todos],
-    };
-    this.userRepository.update(user.id, updateUser);
+    user.todos = [todo, ...user.todos];
+    this.userRepository.update(user.id, this.makeUpdateUser(user));
   }
 
-  // async deleteTodo(userId: string, todo: string): Promise<void> {
-  //   const user = await this.getUserByUserId(userId);
-  //   if (user.todos === null) {
-  //     throw new NotFoundException(
-  //       `User with userId ${userId} have nothing to do`,
-  //     );
-  //   }
-  // }
+  async deleteTodo(userId: string, todo: string): Promise<void> {
+    const user = await this.getUserByUserId(userId);
+    if (user.todos === null) {
+      throw new NotFoundException(
+        `User with userId ${userId} have nothing to do`,
+      );
+    }
+    const todoIndex = user.todos.findIndex((e) => e == todo);
+    if (todoIndex < 0) {
+      throw new NotFoundException(
+        `User with userId ${userId} does not have todo ${todo}`,
+      );
+    }
+    user.todos.splice(todoIndex, 1);
+    this.userRepository.update(user.id, this.makeUpdateUser(user));
+  }
 }

@@ -15,7 +15,7 @@ export class TodosService {
     return this.usersService.addTodo(userId, todo.todo);
   }
 
-  //   async deleteTodo(userId: string, todo: Todo): Promise<void> {
-  //     return this.usersService.deleteTodo(userId, todo.todo);
-  //   }
+  async deleteTodo(userId: string, todo: Todo): Promise<void> {
+    return this.usersService.deleteTodo(userId, todo.todo);
+  }
 }

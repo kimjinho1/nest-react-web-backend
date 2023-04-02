@@ -22,8 +22,8 @@ export class TodosController {
     return this.todosService.addTodo(req.user.userId, todo);
   }
 
-  //   @Delete()
-  //   async deleteTodo(@Request() req, @Body() todo: Todo): Promise<void> {
-  //     return this.todosService.deleteTodo(req.user.userId, todo);
-  //   }
+  @Delete()
+  async deleteTodo(@Request() req, @Body() todo: Todo): Promise<void> {
+    return this.todosService.deleteTodo(req.user.userId, todo);
+  }
 }
