@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { TodosController } from 'src/todos/todos.controller';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entity/user.entity';
@@ -71,4 +72,25 @@ export class UsersService {
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<void> {
     this.userRepository.update(id, updateUserDto);
   }
+
+  async addTodo(userId: string, todo: string): Promise<void> {
+    const user = await this.getUserByUserId(userId);
+    if (user.todos === null) {
+      user.todos = [];
+    }
+    const updateUser = {
+      ...user,
+      todos: [todo, ...user.todos],
+    };
+    this.userRepository.update(user.id, updateUser);
+  }
+
+  // async deleteTodo(userId: string, todo: string): Promise<void> {
+  //   const user = await this.getUserByUserId(userId);
+  //   if (user.todos === null) {
+  //     throw new NotFoundException(
+  //       `User with userId ${userId} have nothing to do`,
+  //     );
+  //   }
+  // }
 }
