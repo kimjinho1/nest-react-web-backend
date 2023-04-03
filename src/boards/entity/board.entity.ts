@@ -15,5 +15,11 @@ export class Board {
   title: string;
 
   @Column()
+  thumbnail: string;
+
+  @Column()
+  date: string;
+
+  @Column()
   content: string;
 }

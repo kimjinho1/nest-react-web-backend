@@ -11,5 +11,11 @@ export class CreateBoardDto {
   readonly title: string;
 
   @IsString()
+  readonly thumbnail: string;
+
+  @IsString()
+  readonly date: string;
+
+  @IsString()
   readonly content: string;
 }
