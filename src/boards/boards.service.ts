@@ -16,6 +16,14 @@ export class BoardsService {
     return this.boardRepository.find();
   }
 
+  async getBoardById(id: number): Promise<Board> {
+    const board = await this.boardRepository.findOneBy({ id });
+    if (!board) {
+      throw new NotFoundException(`Board with Id ${id} not found`);
+    }
+    return board;
+  }
+
   async addBoard(createBoardDto: CreateBoardDto): Promise<Board> {
     const board = this.boardRepository.create(createBoardDto);
     await this.boardRepository.save(board);
