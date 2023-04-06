@@ -6,11 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  Request,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
+import { BoardDto } from './dto/board-dto';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { Board } from './entity/board.entity';
+
+export type UserToken = {id: number, userId: string}
 
 @Controller('boards')
 export class BoardsController {
@@ -27,8 +31,12 @@ export class BoardsController {
   }
 
   @Post()
-  async addBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
-    return await this.boardsService.addBoard(createBoardDto);
+  async addBoard(@Request() req, @Body() boardDto: BoardDto): Promise<Board> {
+    const user = {
+      id: req.user.sub,
+      userId: req.user.userId
+    }
+    return await this.boardsService.addBoard(user, boardDto);
   }
 
   @Delete('/:id')
