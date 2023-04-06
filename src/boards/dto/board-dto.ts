@@ -1,12 +1,6 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
-export class CreateBoardDto {
-  @IsNumber()
-  readonly userId: number;
-
-  @IsString()
-  readonly userName: string;
-
+export class BoardDto {
   @IsString()
   readonly title: string;
 
